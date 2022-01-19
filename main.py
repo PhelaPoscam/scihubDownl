@@ -1,9 +1,3 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
 import requests
 from bs4 import BeautifulSoup
 from scidownl.scihub import *
@@ -16,7 +10,7 @@ def download_scihubdownl(DOIs):
         try:
             SciHub(doi, out).download(choose_scihub_url_index=1)
         except:
-            print("An exception occurred at DOI"+doi)
+            print("An exception occurred at DOI "+doi)
             rejected_dois.append(doi)
 
 def download_scrap(DOIs):
