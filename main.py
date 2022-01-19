@@ -13,7 +13,11 @@ import pandas as pd
 def download_scihubdownl(DOIs):
     out = 'paper'
     for doi in DOIs:
-        SciHub(doi, out).download(choose_scihub_url_index=1)
+        try:
+            SciHub(doi, out).download(choose_scihub_url_index=1)
+        except:
+            print("An exception occurred at DOI"+doi)
+            rejected_dois.append(doi)
 
 def download_scrap(DOIs):
     # URL from which pdfs to be downloaded
@@ -50,6 +54,7 @@ def download_scrap(DOIs):
 
 
 if __name__ == '__main__':
+    rejected_dois = []
     df = pd.read_csv('DOI.csv')
     df.rename(columns={df.columns[1]: "DOI"}, inplace=True)
     DOIs = df['DOI'].tolist()
@@ -58,6 +63,8 @@ if __name__ == '__main__':
     #    doi = "http://"+doi
     #    download_scrap(doi)
 
-    #download(DOIs)
+    download_scihubdownl(DOIs)
+    rejected = pd.DataFrame(rejected_dois)
+    rejected.to_csv('rejected_dois.csv')
 
 
